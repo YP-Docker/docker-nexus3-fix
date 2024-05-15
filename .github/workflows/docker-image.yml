@@ -8,6 +8,10 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    outputs:
+      base_image: ${{ steps.extract_info.outputs.base_image }}
+      branch_name: ${{ steps.extract_info.outputs.branch_name }}
+      fix_count: ${{ steps.extract_info.outputs.fix_count }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -16,19 +20,22 @@ jobs:
         id: extract_info
         run: |
           DOCKERFILE_PATH="Dockerfile.java11"
-          BASE_IMAGE=$(awk 'NR==1{print $2}' $DOCKERFILE_PATH | cut -d: -f2)
+          BASE_IMAGE=$(awk 'NR==1{print $2}' $DOCKERFILE_PATH | cut -d: -f2 | sed 's/fedora://')
           BRANCH_NAME=$(echo "${GITHUB_REF#refs/heads/nexus-}")
           FIX_COUNT=$(git rev-list --count HEAD)
 
-          echo "::set-output name=base_image::$BASE_IMAGE"
-          echo "::set-output name=branch_name::$BRANCH_NAME"
-          echo "::set-output name=fix_count::$FIX_COUNT"
+          echo "BASE_IMAGE=$BASE_IMAGE" >> $GITHUB_ENV
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+          echo "FIX_COUNT=$FIX_COUNT" >> $GITHUB_ENV
 
       - name: Docker Build and Push
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
+          BASE_IMAGE: ${{ steps.extract_info.outputs.base_image }}
+          BRANCH_NAME: ${{ steps.extract_info.outputs.branch_name }}
+          FIX_COUNT: ${{ steps.extract_info.outputs.fix_count }}
         run: |
-          docker build -t $DOCKER_USERNAME/nexus:${{ steps.extract_info.outputs.base_image }}-${{ steps.extract_info.outputs.branch_name }}-fix${{ steps.extract_info.outputs.fix_count }} .
+          docker build -t $DOCKER_USERNAME/nexus:${BASE_IMAGE}-${BRANCH_NAME}-fix${FIX_COUNT} .
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-          docker push $DOCKER_USERNAME/nexus:${{ steps.extract_info.outputs.base_image }}-${{ steps.extract_info.outputs.branch_name }}-fix${{ steps.extract_info.outputs.fix_count }}
+          docker push $DOCKER_USERNAME/nexus:${BASE_IMAGE}-${BRANCH_NAME}-fix${FIX_COUNT}
