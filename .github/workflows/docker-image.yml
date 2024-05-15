@@ -15,7 +15,7 @@ jobs:
       - name: Extract Dockerfile information
         id: extract_info
         run: |
-          DOCKERFILE_PATH="builds/Dockerfile.java11"
+          DOCKERFILE_PATH="Dockerfile.java11"
           BASE_IMAGE=$(awk 'NR==1{print $2}' $DOCKERFILE_PATH | cut -d: -f2)
           BRANCH_NAME=$(echo "${GITHUB_REF#refs/heads/nexus-}")
           FIX_COUNT=$(git rev-list --count HEAD)
