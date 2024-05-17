@@ -13,7 +13,7 @@
     </feature>
     <feature name="nexus-datastore-mybatis" description="org.sonatype.nexus:nexus-datastore-mybatis" install="featureFlag:nexus.datastore.enabled" version="3.67.1.01">
         <details>org.sonatype.nexus:nexus-datastore-mybatis</details>
-        <bundle>mvn:org.sonatype.nexus/nexus-datastore-mybatis/3.67.1-013.67.1-01</bundle>
+        <bundle>mvn:org.sonatype.nexus/nexus-datastore-mybatis/3.67.1-013.67.1-013.67.1-01</bundle>
         <bundle>mvn:org.sonatype.nexus/nexus-datastore/3.67.1-01</bundle>
         <bundle>mvn:org.sonatype.nexus/nexus-crypto/3.67.1-01</bundle>
         <bundle>mvn:com.fasterxml.jackson.core/jackson-databind/2.15.3</bundle>
