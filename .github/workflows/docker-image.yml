@@ -16,7 +16,7 @@ jobs:
       - name: Extract Dockerfile information
         id: extract_info
         run: |
-          DOCKERFILE_PATH="Dockerfile.java11"
+          DOCKERFILE_PATH="Dockerfile.java17"
           BASE_IMAGE=$(awk '/^FROM/ {gsub(":", "", $2); print $2$3}' $DOCKERFILE_PATH | sed 's/[^[:print:]]*$//')
           BRANCH_NAME=${GITHUB_REF#refs/heads/nexus-}
           TIMESHTAMP=$(date +"%d%m%Y%H%M%S")
