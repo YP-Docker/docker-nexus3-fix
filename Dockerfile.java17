@@ -1,0 +1,110 @@
+FROM fedora:40
+
+LABEL name="Nexus Repository Manager" \
+    maintainer="Sonatype <support@sonatype.com>" \
+    vendor=Sonatype \
+    version="3.69.0-02" \
+    release="3.69.0" \
+    url="https://sonatype.com" \
+    summary="The Nexus Repository Manager server \
+        with universal support for popular component formats." \
+    description="The Nexus Repository Manager server \
+        with universal support for popular component formats." \
+    run="docker run -d --name NAME \
+        -p 8081:8081 \
+        IMAGE" \
+    stop="docker stop NAME" \
+    com.sonatype.license="Apache License, Version 2.0" \
+    com.sonatype.name="Nexus Repository Manager base image" \
+    io.k8s.description="The Nexus Repository Manager server \
+        with universal support for popular component formats." \
+    io.k8s.display-name="Nexus Repository Manager" \
+    io.openshift.expose-services="8081:8081" \
+    io.openshift.tags="Sonatype,Nexus,Repository Manager"
+
+# configure nexus runtime
+ENV SONATYPE_DIR=/opt/sonatype
+ENV NEXUS_HOME=${SONATYPE_DIR}/nexus \
+    NEXUS_DATA=/nexus-data \
+    NEXUS_CONTEXT='' \
+    SONATYPE_WORK=${SONATYPE_DIR}/sonatype-work \
+    DOCKER_TYPE='rh-docker' \
+    PATH=$PATH:$JAVA_HOME/bin
+
+# Install Java & tar
+RUN dnf update -y \
+    && dnf --setopt=install_weak_deps=0 --setopt=tsflags=nodocs install -y \
+        java-17-openjdk-headless tar procps shadow-utils gzip \
+    && dnf clean all \
+    && groupadd --gid 1000 -r nexus \
+    && useradd --uid 1000 -r nexus -g nexus -s /bin/false -d /opt/sonatype/nexus -c 'Nexus Repository Manager user'
+
+WORKDIR ${SONATYPE_DIR}
+
+# Download nexus & setup directories
+RUN curl -L https://sonatype-download.global.ssl.fastly.net/repository/downloads-prod-group/3/nexus-3.69.0-02-java17-unix.tar.gz --output nexus-3.69.0-02-java17-unix.tar.gz \
+    && curl -L https://sonatype-download.global.ssl.fastly.net/repository/downloads-prod-group/3/nexus-3.69.0-02-java17-unix.tar.gz.sha256 --output nexus-3.69.0-02-java17-unix.tar.gz.sha256 \
+    && sed -i '1s/$/ nexus-3.69.0-02-java17-unix.tar.gz/' nexus-3.69.0-02-java17-unix.tar.gz.sha256 \
+    && sha256sum -c nexus-3.69.0-02-java17-unix.tar.gz.sha256 \
+    && tar -xvf nexus-3.69.0-02-java17-unix.tar.gz \
+    && rm -f nexus-3.69.0-02-java17-unix.tar.gz nexus-3.69.0-02-java17-unix.tar.gz.sha256 \
+    && mv nexus-3.69.0-02 $NEXUS_HOME \
+    && chown -R nexus:nexus ${SONATYPE_WORK} \
+    && mv ${SONATYPE_WORK}/nexus3 ${NEXUS_DATA} \
+    && ln -s ${NEXUS_DATA} ${SONATYPE_WORK}/nexus3 \
+    && rm -rf \
+    /opt/sonatype/nexus/system/com/h2database/h2/1.4.200 \
+    /opt/sonatype/nexus/system/org/keycloak/keycloak-adapter-spi/12.0.3 \
+    /opt/sonatype/nexus/system/org/keycloak/keycloak-common/12.0.3 \
+    /opt/sonatype/nexus/system/org/keycloak/keycloak-saml-adapter-api-public/12.0.3 \
+    /opt/sonatype/nexus/system/org/keycloak/keycloak-saml-adapter-core/12.0.3 \
+    /opt/sonatype/nexus/system/org/keycloak/keycloak-saml-core/12.0.3 \
+    /opt/sonatype/nexus/system/org/keycloak/keycloak-adapter-spi/12.0.3 \
+    /opt/sonatype/nexus/system/org/keycloak/keycloak-saml-core-public/12.0.3 \
+    /opt/sonatype/nexus/system/org/keycloak/keycloak-saml-servlet-filter-adapter/12.0.3 \
+    /opt/sonatype/nexus/system/org/keycloak/keycloak-servlet-adapter-spi/12.0.3 \
+    /opt/sonatype/nexus/system/org/apache/commons/commons-compress/1.24.0 \
+    /opt/sonatype/nexus/system/org/apache/james/apache-mime4j-core/0.8.9 \
+    /opt/sonatype/nexus/system/org/apache/james/apache-mime4j-dom/0.8.9 \
+    /opt/sonatype/nexus/system/org/apache/james/apache-mime4j-storage/0.8.9 \
+    
+    /opt/sonatype/nexus/system/com/h2database/h2/1.4.200 \
+    /opt/sonatype/nexus/system/org/keycloak/keycloak-adapter-spi/12.0.3 \
+    /opt/sonatype/nexus/system/org/keycloak/keycloak-common/12.0.3 \
+    /opt/sonatype/nexus/system/org/keycloak/keycloak-saml-adapter-api-public/12.0.3 \
+    /opt/sonatype/nexus/system/org/keycloak/keycloak-saml-adapter-core/12.0.3 \
+    /opt/sonatype/nexus/system/org/keycloak/keycloak-saml-core/12.0.3 \
+    /opt/sonatype/nexus/system/org/keycloak/keycloak-adapter-spi/12.0.3 \
+    /opt/sonatype/nexus/system/org/keycloak/keycloak-saml-core-public/12.0.3 \
+    /opt/sonatype/nexus/system/org/keycloak/keycloak-saml-servlet-filter-adapter/12.0.3 \
+    /opt/sonatype/nexus/system/org/keycloak/keycloak-servlet-adapter-spi/12.0.3 \
+    /opt/sonatype/nexus/system/org/apache/commons/commons-compress/1.24.0 \
+    /opt/sonatype/nexus/system/org/apache/james/apache-mime4j-core/0.8.9 \
+    /opt/sonatype/nexus/system/org/apache/james/apache-mime4j-dom/0.8.9 \
+    /opt/sonatype/nexus/system/org/apache/james/apache-mime4j-storage/0.8.9
+    
+
+# copy config files
+COPY config_files/system /opt/sonatype/nexus/system/
+# copy FIX packages
+COPY java_packages/system /opt/sonatype/nexus/system/
+#COPY java_packages/lib /opt/sonatype/nexus/lib/
+
+# Removing java memory settings from nexus.vmoptions since now we use INSTALL4J_ADD_VM_PARAMS
+RUN sed -i '/^-Xms/d;/^-Xmx/d;/^-XX:MaxDirectMemorySize/d' $NEXUS_HOME/bin/nexus.vmoptions \
+    && echo "#!/bin/bash" >> ${SONATYPE_DIR}/start-nexus-repository-manager.sh \
+    && echo "cd /opt/sonatype/nexus" >> ${SONATYPE_DIR}/start-nexus-repository-manager.sh \
+    && echo "exec ./bin/nexus run" >> ${SONATYPE_DIR}/start-nexus-repository-manager.sh \
+    && chmod a+x ${SONATYPE_DIR}/start-nexus-repository-manager.sh \
+    && sed -e '/^nexus-context/ s:$:${NEXUS_CONTEXT}:' -i ${NEXUS_HOME}/etc/nexus-default.properties \
+    && dnf remove -y shadow-utils \
+    && ls /usr/lib/jvm/
+
+VOLUME ${NEXUS_DATA}
+
+EXPOSE 8081
+USER nexus
+
+ENV INSTALL4J_ADD_VM_PARAMS="-Xms2703m -Xmx2703m -XX:MaxDirectMemorySize=2703m -Djava.util.prefs.userRoot=${NEXUS_DATA}/javaprefs"
+
+CMD ["/opt/sonatype/nexus/bin/nexus", "run"]
