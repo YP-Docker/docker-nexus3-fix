@@ -3,7 +3,7 @@ name: CI for Docker Build, Push, and Scan
 on: [push]
 
 jobs:
-  build-and-push:
+  build-push-scan:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,7 +17,7 @@ jobs:
             echo "DOCKERFILE_PATH=Dockerfile.java8" >> $GITHUB_ENV
             echo "JAVA_VERSION=java8" >> $GITHUB_ENV
           elif [ -f Dockerfile.java11 ]; then
-            echo "DOCKERFILE_PATH=Dockerfile.java17" >> $GITHUB_ENV
+            echo "DOCKERFILE_PATH=Dockerfile.java11" >> $GITHUB_ENV
             echo "JAVA_VERSION=java11" >> $GITHUB_ENV
           else
             echo "No suitable Dockerfile found"
