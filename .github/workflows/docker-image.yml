@@ -73,15 +73,15 @@ jobs:
         uses: docker/scout-action@v1
         with:
           image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_TAG }}
-          token: ${{ secrets.DOCKER_SCOUT_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
         id: scout_scan
 
       - name: Save Docker Scout Scan Results
-        if: ${{ steps.scout_scan.outputs.scan-result }}
+        if: ${{ steps.scout_scan.outputs['scan-result'] }}
         run: |
           echo "Saving Docker Scout scan results..."
           mkdir -p scan-results
-          echo "${{ steps.scout_scan.outputs.scan-result }}" > scan-results/scan-result.json
+          echo "${{ steps.scout_scan.outputs['scan-result'] }}" > scan-results/scan-result.json
 
       - name: Deploy scan results to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
