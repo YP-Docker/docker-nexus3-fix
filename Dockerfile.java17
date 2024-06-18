@@ -54,34 +54,8 @@ RUN curl -L https://sonatype-download.global.ssl.fastly.net/repository/downloads
     && ln -s ${NEXUS_DATA} ${SONATYPE_WORK}/nexus3 \
     && rm -rf \
     /opt/sonatype/nexus/system/com/h2database/h2/1.4.200 \
-    /opt/sonatype/nexus/system/org/keycloak/keycloak-adapter-spi/12.0.3 \
-    /opt/sonatype/nexus/system/org/keycloak/keycloak-common/12.0.3 \
-    /opt/sonatype/nexus/system/org/keycloak/keycloak-saml-adapter-api-public/12.0.3 \
-    /opt/sonatype/nexus/system/org/keycloak/keycloak-saml-adapter-core/12.0.3 \
-    /opt/sonatype/nexus/system/org/keycloak/keycloak-saml-core/12.0.3 \
-    /opt/sonatype/nexus/system/org/keycloak/keycloak-adapter-spi/12.0.3 \
-    /opt/sonatype/nexus/system/org/keycloak/keycloak-saml-core-public/12.0.3 \
-    /opt/sonatype/nexus/system/org/keycloak/keycloak-saml-servlet-filter-adapter/12.0.3 \
-    /opt/sonatype/nexus/system/org/keycloak/keycloak-servlet-adapter-spi/12.0.3 \
-    /opt/sonatype/nexus/system/org/apache/commons/commons-compress/1.24.0 \
-    /opt/sonatype/nexus/system/org/apache/james/apache-mime4j-core/0.8.9 \
-    /opt/sonatype/nexus/system/org/apache/james/apache-mime4j-dom/0.8.9 \
-    /opt/sonatype/nexus/system/org/apache/james/apache-mime4j-storage/0.8.9 \
     
-    /opt/sonatype/nexus/system/com/h2database/h2/1.4.200 \
-    /opt/sonatype/nexus/system/org/keycloak/keycloak-adapter-spi/12.0.3 \
-    /opt/sonatype/nexus/system/org/keycloak/keycloak-common/12.0.3 \
-    /opt/sonatype/nexus/system/org/keycloak/keycloak-saml-adapter-api-public/12.0.3 \
-    /opt/sonatype/nexus/system/org/keycloak/keycloak-saml-adapter-core/12.0.3 \
-    /opt/sonatype/nexus/system/org/keycloak/keycloak-saml-core/12.0.3 \
-    /opt/sonatype/nexus/system/org/keycloak/keycloak-adapter-spi/12.0.3 \
-    /opt/sonatype/nexus/system/org/keycloak/keycloak-saml-core-public/12.0.3 \
-    /opt/sonatype/nexus/system/org/keycloak/keycloak-saml-servlet-filter-adapter/12.0.3 \
-    /opt/sonatype/nexus/system/org/keycloak/keycloak-servlet-adapter-spi/12.0.3 \
-    /opt/sonatype/nexus/system/org/apache/commons/commons-compress/1.24.0 \
-    /opt/sonatype/nexus/system/org/apache/james/apache-mime4j-core/0.8.9 \
-    /opt/sonatype/nexus/system/org/apache/james/apache-mime4j-dom/0.8.9 \
-    /opt/sonatype/nexus/system/org/apache/james/apache-mime4j-storage/0.8.9
+    /opt/sonatype/nexus/system/com/h2database/h2/1.4.200
     
 
 # copy config files
