@@ -73,7 +73,7 @@ jobs:
         id: scout_scan
         uses: docker/scout-action@v1.9.3
         with:
-          local: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_TAG }}
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_TAG }}
           command: quickview,cves
           write-comment: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
