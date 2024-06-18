@@ -71,22 +71,28 @@ jobs:
 
       - name: Docker Scout Scan
         id: scout_scan
-        if: ${{ github.event_name == 'pull_request' }}
         uses: docker/scout-action@v1.9.3
         with:
-          image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_TAG }}
+          local: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_TAG }}
           command: quickview,cves
-          sarif-file: scout-report.sarif
           write-comment: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          output: scout-report.json
+          sarif-file: scout-report.sarif
 
       - name: Upload Artifact
-        id: scout-report-artifact
+        id: scout-report-artifact-sarif
         uses: actions/upload-artifact@v4.3.3
         if: always()
         with:
-          name: docker-scout-report
+          name: docker-scout-report-sarif
           path: scout-report.sarif
-        
-
-
+          
+      - name: Upload Artifact
+        id: scout-report-artifact-json
+        uses: actions/upload-artifact@v4.3.3
+        if: always()
+        with:
+          name: docker-scout-report-json
+          path: scout-report.json          
+      
