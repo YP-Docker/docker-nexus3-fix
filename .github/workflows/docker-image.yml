@@ -70,6 +70,7 @@ jobs:
         id: scout_scan
         uses: docker/scout-action@v1.9.3
         with:
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_TAG }}
           command: quickview,cves
           sarif-file: scout-report.sarif
           write-comment: true
