@@ -34,7 +34,7 @@ ENV NEXUS_HOME=${SONATYPE_DIR}/nexus \
 # Install Java & tar
 RUN dnf update -y \
     && dnf --setopt=install_weak_deps=0 --setopt=tsflags=nodocs install -y \
-        java-17-openjdk-headless tar procps shadow-utils gzip \
+        java-11-openjdk-headless tar procps shadow-utils gzip \
     && dnf clean all \
     && groupadd --gid 1000 -r nexus \
     && useradd --uid 1000 -r nexus -g nexus -s /bin/false -d /opt/sonatype/nexus -c 'Nexus Repository Manager user'
