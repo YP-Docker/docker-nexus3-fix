@@ -77,6 +77,7 @@ jobs:
           command: quickview,cves
           write-comment: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          format: json
           output: scout-report.json
           sarif-file: scout-report.sarif
 
