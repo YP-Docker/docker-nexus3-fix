@@ -42,21 +42,18 @@ RUN dnf update -y \
 WORKDIR ${SONATYPE_DIR}
 
 # Download nexus & setup directories
-RUN curl -L https://sonatype-download.global.ssl.fastly.net/repository/downloads-prod-group/3/nexus-3.69.0-02-java17-unix.tar.gz --output nexus-3.69.0-02-java17-unix.tar.gz \
-    && curl -L https://sonatype-download.global.ssl.fastly.net/repository/downloads-prod-group/3/nexus-3.69.0-02-java17-unix.tar.gz.sha256 --output nexus-3.69.0-02-java17-unix.tar.gz.sha256 \
-    && sed -i '1s/$/ nexus-3.69.0-02-java17-unix.tar.gz/' nexus-3.69.0-02-java17-unix.tar.gz.sha256 \
-    && sha256sum -c nexus-3.69.0-02-java17-unix.tar.gz.sha256 \
-    && tar -xvf nexus-3.69.0-02-java17-unix.tar.gz \
-    && rm -f nexus-3.69.0-02-java17-unix.tar.gz nexus-3.69.0-02-java17-unix.tar.gz.sha256 \
+RUN curl -L https://sonatype-download.global.ssl.fastly.net/repository/downloads-prod-group/3/nexus-3.69.0-02-java11-unix.tar.gz --output nexus-3.69.0-02-java11-unix.tar.gz \
+    && curl -L https://sonatype-download.global.ssl.fastly.net/repository/downloads-prod-group/3/nexus-3.69.0-02-java11-unix.tar.gz.sha256 --output nexus-3.69.0-02-java11-unix.tar.gz.sha256 \
+    && sed -i '1s/$/ nexus-3.69.0-02-java11-unix.tar.gz/' nexus-3.69.0-02-java11-unix.tar.gz.sha256 \
+    && sha256sum -c nexus-3.69.0-02-java11-unix.tar.gz.sha256 \
+    && tar -xvf nexus-3.69.0-02-java11-unix.tar.gz \
+    && rm -f nexus-3.69.0-02-java11-unix.tar.gz nexus-3.69.0-02-java11-unix.tar.gz.sha256 \
     && mv nexus-3.69.0-02 $NEXUS_HOME \
     && chown -R nexus:nexus ${SONATYPE_WORK} \
     && mv ${SONATYPE_WORK}/nexus3 ${NEXUS_DATA} \
     && ln -s ${NEXUS_DATA} ${SONATYPE_WORK}/nexus3 \
     && rm -rf \
-    /opt/sonatype/nexus/system/com/h2database/h2/1.4.200 \
-    
-    /opt/sonatype/nexus/system/com/h2database/h2/1.4.200
-    
+    /opt/sonatype/nexus/system/com/h2database/h2/1.4.200   
 
 # copy config files
 COPY config_files/system /opt/sonatype/nexus/system/
