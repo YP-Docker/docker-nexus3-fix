@@ -1,6 +1,9 @@
 name: CI for Docker Build, Push, and Scan
 
-on: [push]
+on: 
+  push:
+  pull_request:
+    branches: ["**"]
 
 jobs:
   build-push-scan:
@@ -68,6 +71,7 @@ jobs:
 
       - name: Docker Scout Scan
         id: scout_scan
+        if: ${{ github.event_name == 'pull_request' }}
         uses: docker/scout-action@v1.9.3
         with:
           image: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_TAG }}
