@@ -2,8 +2,6 @@ name: CI for Docker Build, Push, and Scan
 
 on: 
   push:
-  pull_request:
-    branches: ["**"]
 
 jobs:
   build-push-scan:
@@ -81,7 +79,7 @@ jobs:
           output: scout-report.json
           sarif-file: scout-report.sarif
 
-      - name: Upload Artifact
+      - name: Upload Sarif file
         id: scout-report-artifact-sarif
         uses: actions/upload-artifact@v4.3.3
         if: always()
@@ -89,11 +87,10 @@ jobs:
           name: docker-scout-report-sarif
           path: scout-report.sarif
           
-      - name: Upload Artifact
-        id: scout-report-artifact-json
-        uses: actions/upload-artifact@v4.3.3
-        if: always()
+      - name: Upload Summary Markdown
+        uses: actions/upload-artifact@v4
         with:
-          name: docker-scout-report-json
-          path: scout-report.json          
+          name: build-push-scan-summary
+          path: build-push-scan-summary.md
+    
       
