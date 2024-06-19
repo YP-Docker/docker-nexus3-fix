@@ -69,7 +69,7 @@
         <bundle>mvn:com.sun.mail/javax.mail/1.6.2</bundle>
         <bundle>mvn:org.sonatype.nexus/nexus-script/3.69.0-02</bundle>
         <bundle>mvn:org.sonatype.nexus/nexus-ssl/3.69.0-02</bundle>
-        <bundle>mvn:org.apache.commons/commons-compress/1.26.2</bundle>
+        <bundle>mvn:org.apache.commons/commons-compress/1.26.21.26.2</bundle>
         <bundle>mvn:org.tukaani/xz/1.9</bundle>
     </feature>
     <feature name="nexus-audit-plugin" description="org.sonatype.nexus.plugins:nexus-audit-plugin" version="3.69.0.02">

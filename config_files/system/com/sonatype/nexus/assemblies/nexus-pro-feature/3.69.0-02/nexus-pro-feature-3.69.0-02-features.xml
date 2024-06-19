@@ -266,7 +266,7 @@
         <feature prerequisite="true" dependency="false">wrap</feature>
         <bundle>mvn:com.sonatype.nexus.plugins/nexus-repository-yum/3.69.0-02</bundle>
         <bundle>wrap:mvn:org.redline-rpm/redline/1.2.5</bundle>
-        <bundle>mvn:org.apache.commons/commons-compress/1.26.2</bundle>
+        <bundle>mvn:org.apache.commons/commons-compress/1.26.21.26.2</bundle>
         <bundle>mvn:org.tukaani/xz/1.9</bundle>
         <bundle>wrap:mvn:org.jdom/jdom2/2.0.6.1</bundle>
     </feature>
@@ -280,7 +280,7 @@
     <feature name="nexus-repository-npm" description="com.sonatype.nexus.plugins:nexus-repository-npm" version="3.69.0.02">
         <details>com.sonatype.nexus.plugins:nexus-repository-npm</details>
         <bundle>mvn:com.sonatype.nexus.plugins/nexus-repository-npm/3.69.0-02</bundle>
-        <bundle>mvn:org.apache.commons/commons-compress/1.26.2</bundle>
+        <bundle>mvn:org.apache.commons/commons-compress/1.26.21.26.2</bundle>
         <bundle>mvn:com.sonatype.nexus.plugins/nexus-firewall-common/3.69.0-02</bundle>
     </feature>
     <feature name="nexus-repository-helm" description="com.sonatype.nexus.plugins:nexus-repository-helm" version="3.69.0.02">
@@ -291,14 +291,14 @@
     <feature name="nexus-repository-pypi" description="com.sonatype.nexus.plugins:nexus-repository-pypi" version="3.69.0.02">
         <details>com.sonatype.nexus.plugins:nexus-repository-pypi</details>
         <bundle>mvn:com.sonatype.nexus.plugins/nexus-repository-pypi/3.69.0-02</bundle>
-        <bundle>mvn:org.apache.commons/commons-compress/1.26.2</bundle>
+        <bundle>mvn:org.apache.commons/commons-compress/1.26.21.26.2</bundle>
         <bundle>mvn:org.tukaani/xz/1.9</bundle>
         <bundle>mvn:com.sonatype.nexus.plugins/nexus-firewall-common/3.69.0-02</bundle>
     </feature>
     <feature name="nexus-repository-conda" description="com.sonatype.nexus.plugins:nexus-repository-conda" version="3.69.0.02">
         <details>com.sonatype.nexus.plugins:nexus-repository-conda</details>
         <bundle>mvn:com.sonatype.nexus.plugins/nexus-repository-conda/3.69.0-02</bundle>
-        <bundle>mvn:org.apache.commons/commons-compress/1.26.2</bundle>
+        <bundle>mvn:org.apache.commons/commons-compress/1.26.21.26.2</bundle>
     </feature>
     <feature name="nexus-repository-gitlfs" description="com.sonatype.nexus.plugins:nexus-repository-gitlfs" version="3.69.0.02">
         <details>com.sonatype.nexus.plugins:nexus-repository-gitlfs</details>
@@ -321,18 +321,18 @@
     <feature name="nexus-repository-rubygems" description="com.sonatype.nexus.plugins:nexus-repository-rubygems" version="3.69.0.02">
         <details>com.sonatype.nexus.plugins:nexus-repository-rubygems</details>
         <bundle>mvn:com.sonatype.nexus.plugins/nexus-repository-rubygems/3.69.0-02</bundle>
-        <bundle>mvn:org.apache.commons/commons-compress/1.26.2</bundle>
+        <bundle>mvn:org.apache.commons/commons-compress/1.26.21.26.2</bundle>
         <bundle>mvn:org.snakeyaml/snakeyaml-engine/2.1</bundle>
     </feature>
     <feature name="nexus-repository-golang" description="com.sonatype.nexus.plugins:nexus-repository-golang" version="3.69.0.02">
         <details>com.sonatype.nexus.plugins:nexus-repository-golang</details>
         <bundle>mvn:com.sonatype.nexus.plugins/nexus-repository-golang/3.69.0-02</bundle>
-        <bundle>mvn:org.apache.commons/commons-compress/1.26.2</bundle>
+        <bundle>mvn:org.apache.commons/commons-compress/1.26.21.26.2</bundle>
     </feature>
     <feature name="nexus-repository-p2" description="com.sonatype.nexus.plugins:nexus-repository-p2" version="3.69.0.02">
         <details>com.sonatype.nexus.plugins:nexus-repository-p2</details>
         <bundle>mvn:com.sonatype.nexus.plugins/nexus-repository-p2/3.69.0-02</bundle>
-        <bundle>mvn:org.apache.commons/commons-compress/1.26.2</bundle>
+        <bundle>mvn:org.apache.commons/commons-compress/1.26.21.26.2</bundle>
         <bundle>mvn:org.tukaani/xz/1.9</bundle>
     </feature>
     <feature name="nexus-vulnerability-plugin" description="com.sonatype.nexus.plugins:nexus-vulnerability-plugin" version="3.69.0.02">
