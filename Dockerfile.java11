@@ -62,7 +62,8 @@ RUN curl -L https://sonatype-download.global.ssl.fastly.net/repository/downloads
     /opt/sonatype/nexus/system/org/keycloak/keycloak-adapter-spi/12.0.3 \
     /opt/sonatype/nexus/system/org/keycloak/keycloak-saml-core-public/12.0.3 \
     /opt/sonatype/nexus/system/org/keycloak/keycloak-saml-servlet-filter-adapter/12.0.3 \
-    /opt/sonatype/nexus/system/org/keycloak/keycloak-servlet-adapter-spi/12.0.3
+    /opt/sonatype/nexus/system/org/keycloak/keycloak-servlet-adapter-spi/12.0.3 \
+    /opt/sonatype/nexus/system/org/apache/commons/commons-compress/1.26.2
     
 
 # copy config files
